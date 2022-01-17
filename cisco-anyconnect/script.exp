@@ -44,8 +44,9 @@ if {$force_conservative} {
 
 set timeout -1
 
-set password [lindex $argv 0]
-set totp [lindex $argv 1]
+set username [lindex $argv 0]
+set password [lindex $argv 1]
+set totp [lindex $argv 2]
 
 spawn /opt/cisco/anyconnect/bin/vpn
 match_max 100000
@@ -61,9 +62,9 @@ connect \"WeC Two Factor VPN\"\r
 \r
   >> Please enter your username and password.\r
 \r
-Username: \[m0s04cr\] "
-send -- "m0s04cr\r"
-expect -exact "m0s04cr\r
+Username: \[$username\] "
+send -- "$username\r"
+expect -exact "$username\r
 Password: "
 send -- "$password\r"
 expect -exact "\r
