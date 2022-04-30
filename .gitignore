@@ -1,2 +1,3 @@
 *.swp*
 *.enc
+.DS_Store

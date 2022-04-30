@@ -113,6 +113,12 @@ source $ZSH/oh-my-zsh.sh
 # Silence the "Console output during zsh initialization detected" warning
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+# -------------------- Functions --------------------
+
+command_exists () {
+    type "$1" &> /dev/null ;
+}
+
 # -------------------- Aliases --------------------
 alias ls='ls -G '
 alias n='open .'
@@ -183,3 +189,28 @@ fi
 if [ -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
     source "$HOME/.sdkman/bin/sdkman-init.sh"
 fi
+
+if command_exists kubectl; then
+    echo "Kubectl found, sourcing completion files."
+    source <(kubectl completion zsh)
+fi
+
+if [[ -f "$HOME/.sledge/bin/sledge" ]]; then
+      export SLEDGE_BIN="$HOME/.sledge/bin"
+      export PATH="${PATH}:${SLEDGE_BIN}"
+fi
+
+export PATH=$HOME/go/bin:$PATH
+
+function kubectlgetall {
+  for i in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+    echo "Resource:" $i
+
+    if [ -z "$1" ]
+    then
+        kubectl get --ignore-not-found ${i}
+    else
+        kubectl -n ${1} get --ignore-not-found ${i}
+    fi
+  done
+}

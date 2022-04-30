@@ -17,7 +17,7 @@
 	nnoremap C :call NERDComment('n', 'NormalToggle')<CR>
 	vnoremap C :call NERDComment('x', 'NormalToggle')<CR>
 "nmap <Leader> <leader>c<space>
-	noremap <C-Space> :bn<CR>
+	noremap <Nul> :bn<CR>
 	nnoremap <C-B> :bp<CR>
 	nnoremap <F2> :bd<CR>
 	nnoremap <C-e> :call CloseBufWithoutClosingNetrw()<CR>
@@ -106,6 +106,7 @@ vnoremap <silent> # :<C-U>
 	Plugin 'stamblerre/gocode', {'rtp': 'vim/'}
 	"Plugin 'tomlion/vim-solidity'
 	Plugin 'davidhalter/jedi-vim'
+	Plugin 'jparise/vim-graphql'
     "Plugin 'prettier/vim-prettier', {
                 "\ 'do': 'yarn install',
                 "\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
@@ -138,9 +139,9 @@ vnoremap <silent> # :<C-U>
 	set undolevels=1000
 	set history=1000	"History amount
 	set laststatus=2	"Always Display the status line
-	set timeoutlen=10	"Set the timeout for change from insert to normal mode
+	set ttimeoutlen=0
+	set timeoutlen=5	"Set the timeout for change from insert to normal mode
 	"change in vim airline
-	set directory^=$HOME/.vim/tmp// "To change the default save directory of swap files to .vim/tmp for better file management"
 	set encoding=utf-8
 	"set cursorcolumn
 	"set cursorline
@@ -159,6 +160,50 @@ vnoremap <silent> # :<C-U>
 	set listchars=tab:▸.
 	set diffopt+=iwhite
 	set tags=./tags;
+    " set noendofline binary     "Helps to remove the trailing newline character added by vim
+
+    " Save your backup files to a less annoying place than the current directory.
+    " If you have .vim-backup in the current directory, it'll use that.
+    " Otherwise it saves it to ~/.vim/backup or .
+    if isdirectory($HOME . '/.vim/backup') == 0
+      :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+    endif
+
+    set backupdir-=.
+    set backupdir+=.
+    set backupdir-=~/
+    set backupdir^=~/.vim/backup/
+    set backupdir^=./.vim-backup/
+    set backup
+
+    " Save your swap files to a less annoying place than the current directory.
+    " If you have .vim-swap in the current directory, it'll use that.
+    " Otherwise it saves it to ~/.vim/swap, ~/tmp or .
+    if isdirectory($HOME . '/.vim/swap') == 0
+      :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+    endif
+
+    set directory=./.vim-swap//
+    set directory+=~/.vim/swap//
+    set directory+=~/tmp//
+    set directory+=.
+
+    " viminfo stores the the state of your previous editing session
+    set viminfo+=n~/.vim/viminfo
+
+    if exists("+undofile")
+      " undofile - This allows you to use undos after exiting and restarting
+      " This, like swap and backup files, uses .vim-undo first, then ~/.vim/undo
+      " :help undo-persistence
+      " This is only present in 7.3+
+      if isdirectory($HOME . '/.vim/undo') == 0
+        :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+      endif
+      set undodir=./.vim-undo//
+      set undodir+=~/.vim/undo//
+      set undofile
+    endif
+
 	"setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1 "https://gcc.gnu.org/wiki/FormattingCodeForGCC
 
 
@@ -169,6 +214,7 @@ filetype plugin indent on	"Turns the filetype plugin on
 "autocmd FileType html set omnifunc=htmlcomplete#CompleteTags	"Autocompletes HTML tags
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript,typescript,html,json setlocal shiftwidth=2 tabstop=2
+autocmd FileType graphql setlocal shiftwidth=4 tabstop=4
 
 autocmd FileType go set foldmethod=syntax
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
