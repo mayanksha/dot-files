@@ -61,7 +61,8 @@
 	vnoremap <C-v> "+p
 	nnoremap <C-v> "+p
 
-	nmap <F5> :call ToggleListChars()<CR>
+	nmap <F5> :GoRun<CR>
+	nmap <F6> :call ToggleListChars()<CR>
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -386,3 +387,9 @@ endfunction
 function! FormatJSON()
     :%!python -m json.tool
 endfunction
+
+" If running in a WSL terminal, then change Ctrl + C copying
+if executable('wslpath')
+    autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' |  clip.exe')
+endif
+
