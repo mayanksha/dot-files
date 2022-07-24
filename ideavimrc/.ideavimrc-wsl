@@ -1,0 +1,103 @@
+"" Source your .vimrc
+"source ~/.vimrc
+
+set shell=wsl.exe
+set shellcmdflag=-lic
+
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+
+map <C-N> <Plug>NextWholeOccurrence
+map <C-P> <Plug>RemoveOccurrence
+map <C-X> <Plug>SkipOccurrence
+
+
+"Map leader Key to ","
+	let mapleader=","
+"Remapped NUL to switch buffers
+	inoremap <S-Tab> <C-V><Tab>
+"Mappings for calling NERDComment using c
+	nnoremap c :call NERDComment('n', 'SexyToggle')<CR>
+	vnoremap c :call NERDComment('x', 'SexyToggle')<CR>
+	nnoremap C :call NERDComment('n', 'NormalToggle')<CR>
+	vnoremap C :call NERDComment('x', 'NormalToggle')<CR>
+"nmap <Leader> <leader>c<space>
+	noremap <Nul> :bn<CR>
+	nnoremap <C-B> :bp<CR>
+	nnoremap <F2> :bd<CR>
+	nnoremap <C-e> :call CloseBufWithoutClosingNetrw()<CR>
+" Use ctrl-[hjkl] to select the active split!
+	nmap <silent> <c-k> :wincmd k<CR>
+"nmap <silent> <c-j> :wincmd j<CR>
+	nmap <silent> <c-h> :wincmd h<CR>
+	nmap <silent> <c-l> :wincmd l<CR>
+"Code Folding in VIM
+	inoremap <F3> <C-O>za
+	nnoremap <F3> za
+	onoremap <F3> <C-C>za
+	vnoremap <F3> zf
+	vnoremap <F6> zM
+
+	map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+	map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+"Remap + and 0 for going to first non-whitespace character
+	nnoremap ^ 0
+	nnoremap 0 ^
+
+"Save with sudo
+	"command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+"Map move to end of word to w
+	map w e
+"Vim Surround mappings
+	vnoremap <Plug>VSurround  :<C-U>call <SID>opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+	xnoremap <silent> <M-"> :call <SNR>34_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>"
+	xnoremap <silent> [ :call <SNR>34_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>]
+	xnoremap <silent> 4 :call <SNR>34_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>$
+	xnoremap <silent> ' :call <SNR>34_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>'
+	xnoremap <silent> ( :call <SNR>34_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>)
+	xnoremap <silent> { :call <SNR>34_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>}
+"Delete Surrounding Pairs
+	nnoremap <C-x> %x``x
+	xnoremap <C-x> %x``x
+
+	vnoremap . :normal .<CR>
+	vnoremap <C-c> "+y
+	vnoremap <C-v> "+p
+	nnoremap <C-v> "+p
+
+	nmap <F5> :GoRun<CR>
+	nmap <F6> :call ToggleListChars()<CR>
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  scape(@", '/\.*$^~['), '\_s\+', '\_s\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  scape(@", '?\.*$^~['), '\_s\+', '\_s\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+	set number
+	set hlsearch	    "highligh search terms
+	set incsearch	    "show search matches as you type
+
+    " viminfo stores the the state of your previous editing session
+set viminfo+=n~/.vim/viminfo
+
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+
+" Find more examples here: https://jb.gg/share-ideavimrc

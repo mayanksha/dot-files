@@ -1,0 +1,11 @@
+set vim-surround
+set vim-multiple-cursors
+
+set visualbell
+set noerrorbells
+
+map <C-N> <Plug>NextWholeOccurrence
+map <C-P> <Plug>RemoveOccurrence
+map <C-X> <Plug>SkipOccurrence
+
+source ~/.vimrc
