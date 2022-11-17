@@ -32,6 +32,20 @@ The second one is the TOTP Key that's generated when we enroll a new device/app 
 
 Once you're done storing the above two credentials, you can run the `login.sh` script and it'll connect you to "WeC Two Factor VPN".
 
+### Usage
+
+**Note**:
+1. Before using the script, please login to your BW vault once from CLI using `bw login`. It'll ask your email and master password, but for the first time, but for subsequent unlocks, it'll just ask for master password.
+2. You have to force quit the Cisco AnyConnect GUI Application before you can use the CLI Application.
+
+When you want to connect to "WeC Two Factor VPN", simply launch this script using `bash login.sh`. If you have all the necessary setup done, the `login.sh` script will launch `script.exp` (an `expect` script) and will connect you to VPN using Cisco AnyConnect VPN's CLI application.
+
+For disconnecting from the vpn, you can run the following command:
+
+```
+/opt/cisco/anyconnect/bin/vpn disconnect
+```
+
 ### Trust Model
 
 Entities assumed to be trusted:

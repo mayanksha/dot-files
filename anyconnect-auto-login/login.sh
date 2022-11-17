@@ -175,17 +175,3 @@ PASSWORD=`bw get password "walmart-sso-password" --session ${BW_SESSION_KEY}`
 TOTP=`oathtool -b --totp $(bw get password "walmart-totp-key" --session ${BW_SESSION_KEY})`
 
 expect "${SCRIPT_DIR}/script.exp" "${LOGNAME}" "${PASSWORD}" "${TOTP}"
-
-# Reset the sudo privileges and force the user to enter the sudo password/auth by Touch-ID
-# sudo -k
-# sudo -l > /dev/null
-
-# SCRIPT_DIR="$(dirname $0)"
-# KEYCHAIN_BW_KEY="bw-master-pass"
-
-# SESSION_KEY=$(security find-generic-password -a ${LOGNAME} -s ${KEYCHAIN_BW_KEY} -w | bw unlock --raw)
-
-# PASSWORD=`bw get password eb70522c-0bfe-464e-ad35-ad090097241b --session ${SESSION_KEY}`
-# TOTP=`oathtool -b --totp $(bw get password Walmart-totp-key --session ${SESSION_KEY})`
-
-# expect "${SCRIPT_DIR}/script.exp" "${LOGNAME}" "${PASSWORD}" "${TOTP}"

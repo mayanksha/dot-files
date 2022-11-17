@@ -52,13 +52,13 @@ spawn /opt/cisco/anyconnect/bin/vpn
 match_max 100000
 expect *
 expect -exact "VPN> "
-send -- "connect \"WeC Two Factor VPN"
-expect -exact "WeC Two Factor VPN"
+send -- "connect \"XYZ VPN"
+expect -exact "XYZ VPN"
 send -- "\"\r"
 expect -exact "\"\r
-connect \"WeC Two Factor VPN\"\r
-\r  >> contacting host (WeC Two Factor VPN) for login information...\r
-\rVPN> \r  >> notice: Contacting WeC Two Factor VPN.\r
+connect \"XYZ VPN\"\r
+\r  >> contacting host (XYZ VPN) for login information...\r
+\rVPN> \r  >> notice: Contacting XYZ VPN.\r
 \r
   >> Please enter your username and password.\r
 \r
