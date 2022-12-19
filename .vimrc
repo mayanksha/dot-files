@@ -82,10 +82,9 @@ vnoremap <silent> # :<C-U>
 
     call plug#begin('~/.vim/plugged')
 
+    " General
 	Plug 'ctrlpvim/ctrlp.vim'
-	"Plug 'tyrannicaltoucan/vim-quantum.git'
 	Plug 'jiangmiao/auto-pairs'
-    "Plug 'Quramy/tsuquyomi'
 	Plug 'ervandew/supertab'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
@@ -95,26 +94,23 @@ vnoremap <silent> # :<C-U>
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'Valloric/YouCompleteMe'
 	Plug 'mayanksha/nerdcommenter'
-	Plug 'Quramy/vim-js-pretty-template'
 	Plug 'vim-utils/vim-man'
-	Plug 'leafgarland/typescript-vim'
-	Plug 'ternjs/tern_for_vim'
-	Plug 'pangloss/vim-javascript'
-	Plug 'mxw/vim-jsx'
-	Plug 'mattn/emmet-vim'
 	Plug 'w0rp/ale'
-	Plug 'suan/vim-instant-markdown'
-	Plug 'fatih/vim-go'
-	Plug 'stamblerre/gocode', {'rtp': 'vim/'}
-	"Plug 'tomlion/vim-solidity'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
 	Plug 'davidhalter/jedi-vim'
 	Plug 'jparise/vim-graphql'
-    "Plug 'prettier/vim-prettier', {
-                "\ 'do': 'yarn install',
-                "\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-    " Java specific plugins
-    Plug 'artur-shaik/vim-javacomplete2'
+
+    " Golang
+	Plug 'fatih/vim-go'
+	Plug 'stamblerre/gocode', {'rtp': 'vim/'}
+
+    " Javascript
+	" Plug 'Quramy/vim-js-pretty-template'
+	" Plug 'leafgarland/typescript-vim'
+	" Plug 'ternjs/tern_for_vim'
+	" Plug 'pangloss/vim-javascript'
+	" Plug 'mxw/vim-jsx'
+	" Plug 'mattn/emmet-vim'
 
 	call plug#end()
 
