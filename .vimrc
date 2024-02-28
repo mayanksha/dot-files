@@ -226,6 +226,8 @@ filetype plugin indent on	"Turns the filetype plugin on
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript,typescript,html,json setlocal shiftwidth=2 tabstop=2
 autocmd FileType graphql setlocal shiftwidth=4 tabstop=4
+" Enable tf syntax highlighting
+autocmd BufNewFile,BufRead *.tf set syntax=tf
 
 autocmd FileType go set foldmethod=syntax
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
