@@ -1,0 +1,13 @@
+[Unit]
+Description=Rclone for plex debrid
+After=multi-user.target
+
+[Service]
+Type=simple
+User=msharmapi
+Group=msharmapi
+ExecStart=/home/msharmapi/Downloads/rclone-linux-arm64 mount realdebrid: /torrents --dir-cache-time 24h --allow-other --vfs-cache-mode full --verbose
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

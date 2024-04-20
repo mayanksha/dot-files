@@ -1,0 +1,13 @@
+[Unit]
+Description=Plex Debrid
+After=multi-user.target
+
+[Service]
+Type=simple
+User=msharmapi
+Group=msharmapi
+ExecStart=/bin/sh -c 'cd /home/msharmapi/git/plex_debrid && echo 1 | /home/msharmapi/git/plex_debrid/venv/bin/python main.py'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
