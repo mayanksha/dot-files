@@ -142,15 +142,18 @@ alias gs="git status "
 alias ga="git add "
 alias gc="git checkout "
 alias gcm="git commit "
-alias gp="git push "
+alias gp="git pull"
+alias gpo="git pull origin $(git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/)"
 alias gd="git diff "
 alias gg="git grep "
 alias gdc="git diff --cached "
+alias gla="git log --decorate --graph"
 alias gla="git log --decorate --graph --all"
 
 # --------------------- Exports ---------------------
 #
 alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
+alias tf="terraform"
 SAVEHIST=10000000
 HISTFILE=~/.zsh_history
 
@@ -169,9 +172,6 @@ export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
 export LESS=" -R "
 
 # NVM related setup
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # --------------------- Plugins Config ---------------------
 bindkey "^[[A" history-substring-search-up
