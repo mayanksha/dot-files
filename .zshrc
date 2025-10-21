@@ -143,7 +143,7 @@ alias ga="git add "
 alias gc="git checkout "
 alias gcm="git commit "
 alias gp="git pull"
-alias gpo="git pull origin $(git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/)"
+alias gpo='git pull origin $(git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/)'
 alias gd="git diff "
 alias gg="git grep "
 alias gdc="git diff --cached "
@@ -154,8 +154,19 @@ alias gla="git log --decorate --graph --all"
 #
 alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
 alias tf="terraform"
-SAVEHIST=10000000
-HISTFILE=~/.zsh_history
+
+#set history size
+export HISTSIZE=10000
+#save history after logout
+export SAVEHIST=10000
+#history file
+export HISTFILE=~/.zsh_history
+#append into history file
+setopt INC_APPEND_HISTORY
+#save only one command if 2 common are same and consistent
+setopt HIST_IGNORE_DUPS
+#add timestamp for each entry
+setopt EXTENDED_HISTORY
 
 export HISTFILESIZE=1000000
 export HISTSIZE=10000000
@@ -171,7 +182,43 @@ export GOPATH="$HOME/go"
 export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
 export LESS=" -R "
 
-# NVM related setup
+# --------------------- Notify Long Running Commands in ZSH on Mac ---------------------
+notify () {
+	eval "$@"
+	result=$?
+	ping $result
+	cmd_notification $result "$@"
+}
+
+ping () {
+	result=$1
+	if [ "$result" != 0 ]
+	then
+		sound=/System/Library/Sounds/Basso.aiff
+	else
+		sound=/System/Library/Sounds/Ping.aiff
+	fi
+	afplay "$sound" -v 4
+}
+
+cmd_notification () {
+	if [[ "$#" -lt 2 ]]
+	then
+		echo "Usage: cmd_notification result command"
+		return
+	fi
+	result=$1
+	shift
+	cmd=$@
+	notify_text="Command completed: "
+	if [[ "$result" != 0 ]]
+	then
+		notify_text+="FAILURE - $result"
+	else
+		notify_text+=SUCCESS
+	fi
+	osascript -e "display notification \"$notify_text\" with title \"$cmd\""
+}
 
 # --------------------- Plugins Config ---------------------
 bindkey "^[[A" history-substring-search-up
@@ -214,3 +261,23 @@ function kubectlgetall {
     fi
   done
 }
+# BEGIN env Setup -- Managed by Ansible DO NOT EDIT.
+
+# Setup INDEED_ENV_DIR earlier.
+if [ -z "${INDEED_ENV_DIR}" ]; then
+    export INDEED_ENV_DIR="/Users/masharma/env"
+fi
+
+# Single-brace syntax because this is required in bash and sh alike
+if [ -e "${INDEED_ENV_DIR}/etc/indeedrc" ]; then
+    . "${INDEED_ENV_DIR}/etc/indeedrc"
+fi
+# END env Setup -- Managed by Ansible DO NOT EDIT.
+
+# Created by `pipx` on 2024-08-14 10:00:52
+export PATH="$PATH:$USER/.local/bin"
+
+if [ -f "$HOME/.cvm.sh" ]; then
+    source "$HOME/.cvm.sh"
+fi
+
