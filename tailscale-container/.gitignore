@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+
+docker-compose.override.yml
+
+id_*
+*.pem
+*.key
+authorized_keys
+known_hosts
+
+.DS_Store
