@@ -61,6 +61,7 @@
 	vnoremap <C-v> "+p
 	nnoremap <C-v> "+p
 
+
 	nmap <F5> :GoRun<CR>
 	nmap <F6> :call ToggleListChars()<CR>
 
@@ -403,5 +404,17 @@ endfunction
 " If running in a WSL terminal, then change Ctrl + C copying
 if executable('wslpath')
     autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' |  clip.exe')
+endif
+
+" Check for ripgrep (rg) first, then fallback to silver searcher (ag), then git
+if executable('rg')
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+elseif executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+else
+  " Fallback to git ls-files if in a git repo, otherwise use CtrlP's default
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 endif
 
