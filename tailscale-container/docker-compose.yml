@@ -12,6 +12,9 @@ services:
     volumes:
       - ts-state:/var/lib/tailscale
       - ts-ssh:/root/.ssh
+    ports:
+      - "127.0.0.1:5170-5180:5170-5180"
+      - "127.0.0.1:8000-8010:8000-8010"
     restart: unless-stopped
 
 volumes:

@@ -1,4 +1,0 @@
-services:
-  tailscale:
-    environment:
-      TS_AUTHKEY: "tskey-auth-..."
